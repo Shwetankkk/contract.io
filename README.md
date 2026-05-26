@@ -4,7 +4,7 @@ An AI-powered API contract diffing and blast-radius analyzer. Paste two versions
 
 > Built as a portfolio project to explore how far you can take an app built **purely with AI** (Lovable + Gemini), end to end.
 
-**Live demo:** _add your published URL here_
+**Live demo:** https://contractio.lovable.app/
 
 ---
 
