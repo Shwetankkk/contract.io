@@ -9,6 +9,30 @@ import { DiffViewer } from "@/components/DiffViewer";
 import { SeverityBadge } from "@/components/SeverityBadge";
 import { AIReportCard } from "@/components/AIReportCard";
 
+// Soft client-side cap: 5 AI runs per browser per day. Keeps a public demo
+// well within the $1/month free Lovable AI balance even if the link spreads.
+const DAILY_CAP = 5;
+const CAP_KEY = "contractio_ai_runs";
+
+function getTodayCount(): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const raw = localStorage.getItem(CAP_KEY);
+    if (!raw) return 0;
+    const { date, count } = JSON.parse(raw);
+    return date === new Date().toISOString().slice(0, 10) ? count : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function bumpTodayCount() {
+  if (typeof window === "undefined") return;
+  const date = new Date().toISOString().slice(0, 10);
+  const count = getTodayCount() + 1;
+  localStorage.setItem(CAP_KEY, JSON.stringify({ date, count }));
+}
+
 const SAMPLE_OLD = `{
   "openapi": "3.0.0",
   "info": { "title": "Orders API", "version": "1.4.0" },
