@@ -43,11 +43,7 @@ function Landing() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,color-mix(in_oklab,var(--severity-safe)_18%,transparent)_0%,transparent_60%)]" />
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_1fr]">
           <div>
-            <div className="mono inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-[10px] uppercase tracking-wider text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary glow-primary" />
-              portfolio project · built with lovable ai
-            </div>
-            <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
+            <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
               Catch breaking API changes{" "}
               <span className="sev-safe">before they ship.</span>
             </h1>
