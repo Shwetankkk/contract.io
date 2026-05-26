@@ -9,6 +9,30 @@ import { DiffViewer } from "@/components/DiffViewer";
 import { SeverityBadge } from "@/components/SeverityBadge";
 import { AIReportCard } from "@/components/AIReportCard";
 
+// Soft client-side cap: 5 AI runs per browser per day. Keeps a public demo
+// well within the $1/month free Lovable AI balance even if the link spreads.
+const DAILY_CAP = 5;
+const CAP_KEY = "contractio_ai_runs";
+
+function getTodayCount(): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const raw = localStorage.getItem(CAP_KEY);
+    if (!raw) return 0;
+    const { date, count } = JSON.parse(raw);
+    return date === new Date().toISOString().slice(0, 10) ? count : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function bumpTodayCount() {
+  if (typeof window === "undefined") return;
+  const date = new Date().toISOString().slice(0, 10);
+  const count = getTodayCount() + 1;
+  localStorage.setItem(CAP_KEY, JSON.stringify({ date, count }));
+}
+
 const SAMPLE_OLD = `{
   "openapi": "3.0.0",
   "info": { "title": "Orders API", "version": "1.4.0" },
@@ -213,6 +237,8 @@ export function OpenApiCompare() {
 
   const run = () => {
     if (!result.ok) return;
+    if (getTodayCount() >= DAILY_CAP) return;
+    bumpTodayCount();
     mutation.mutate({
       data: {
         service: {
@@ -264,11 +290,19 @@ export function OpenApiCompare() {
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={run}
-              disabled={mutation.isPending || result.changes.length === 0}
+              disabled={
+                mutation.isPending ||
+                result.changes.length === 0 ||
+                getTodayCount() >= DAILY_CAP
+              }
               className="glow-primary inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
             >
               <Zap className="h-4 w-4" />
-              {mutation.isPending ? "Validating…" : "Run AI validation"}
+              {mutation.isPending
+                ? "Validating…"
+                : getTodayCount() >= DAILY_CAP
+                  ? `Daily demo limit reached (${DAILY_CAP}/day)`
+                  : "Run AI validation"}
             </button>
             <div className="mono text-xs text-muted-foreground">
               deterministic diff:{" "}
