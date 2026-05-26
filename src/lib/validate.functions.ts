@@ -73,7 +73,8 @@ Produce a blast-radius report. Speak to a senior engineer. Be specific about whi
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemini-3-flash-preview",
+          // Cheapest model on the gateway — keeps us inside the $1/mo free AI balance
+          model: "google/gemini-2.5-flash-lite",
           messages: [
             {
               role: "system",
