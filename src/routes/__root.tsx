@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { AppHeader } from "@/components/AppHeader";
 
 function NotFoundComponent() {
   return (
@@ -72,11 +73,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "contract.io — AI API Contract Validator" },
+      {
+        name: "description",
+        content:
+          "Detect breaking API changes across microservices and get AI-explained blast radius before they hit prod.",
+      },
+      { property: "og:title", content: "contract.io — AI API Contract Validator" },
+      {
+        property: "og:description",
+        content:
+          "Dependency graph + diff engine + AI explainer for microservice API contracts.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -113,7 +121,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <div className="min-h-screen">
+        <AppHeader />
+        <main className="mx-auto max-w-7xl px-4 py-8">
+          <Outlet />
+        </main>
+      </div>
     </QueryClientProvider>
   );
 }
