@@ -90,6 +90,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "contract.io" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "author", content: "Shwetank Singh" },
+      { name: "twitter:title", content: "contract.io — AI API Contract Validator" },
+      { name: "description", content: "Contract.io analyzes OpenAPI specs, traces dependencies, and uses AI to explain microservice changes and their impact." },
+      { property: "og:description", content: "Contract.io analyzes OpenAPI specs, traces dependencies, and uses AI to explain microservice changes and their impact." },
+      { name: "twitter:description", content: "Contract.io analyzes OpenAPI specs, traces dependencies, and uses AI to explain microservice changes and their impact." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/025e3191-4990-4557-bbc1-9d23f8b3c8f6/id-preview-920f55e5--918ebfaf-2a38-4eb6-add8-218f73f72ab3.lovable.app-1779823345332.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/025e3191-4990-4557-bbc1-9d23f8b3c8f6/id-preview-920f55e5--918ebfaf-2a38-4eb6-add8-218f73f72ab3.lovable.app-1779823345332.png" },
     ],
     links: [
       {
