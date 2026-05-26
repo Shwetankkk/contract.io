@@ -5,11 +5,11 @@ import ReactFlow, {
   Controls,
   Handle,
   Position,
+  ReactFlowProvider,
   type Edge,
   type Node,
   type NodeProps,
 } from "reactflow";
-import "reactflow/dist/style.css";
 import { SERVICES_V1 } from "@/data/specs";
 import { buildEdges } from "@/lib/graph";
 
@@ -104,22 +104,25 @@ export function DependencyGraph({
 
   return (
     <div
-      className="rounded-lg border border-border overflow-hidden"
-      style={{ height, background: "var(--color-card)" }}
+      className="rounded-lg border border-border overflow-hidden w-full"
+      style={{ height, background: "var(--color-card)", position: "relative" }}
     >
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        nodeTypes={nodeTypes}
-        fitView
-        fitViewOptions={{ padding: 0.2 }}
-        proOptions={{ hideAttribution: true }}
-        nodesDraggable={false}
-        nodesConnectable={false}
-      >
-        <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="var(--grid-line)" />
-        <Controls showInteractive={false} className="!bg-card !border-border" />
-      </ReactFlow>
+      <ReactFlowProvider>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          fitView
+          fitViewOptions={{ padding: 0.2 }}
+          proOptions={{ hideAttribution: true }}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="var(--grid-line)" />
+          <Controls showInteractive={false} className="!bg-card !border-border" />
+        </ReactFlow>
+      </ReactFlowProvider>
     </div>
   );
 }
