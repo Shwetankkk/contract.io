@@ -12,6 +12,7 @@ import { DependencyGraph } from "@/components/DependencyGraph";
 import { DiffViewer } from "@/components/DiffViewer";
 import { AIReportCard } from "@/components/AIReportCard";
 import { SeverityBadge } from "@/components/SeverityBadge";
+import { OpenApiCompare } from "@/components/OpenApiCompare";
 
 const SearchSchema = z.object({ service: z.string().optional() });
 
@@ -159,6 +160,10 @@ function SimulatePage() {
 
       <section>
         <AIReportCard report={mutation.data} loading={mutation.isPending} />
+      </section>
+
+      <section className="pt-4">
+        <OpenApiCompare />
       </section>
     </div>
   );

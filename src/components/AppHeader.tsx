@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Activity, GitBranch, Network, Zap } from "lucide-react";
+import { Activity, GitBranch, Home, Network, Zap } from "lucide-react";
 
 export function AppHeader() {
   return (
@@ -17,7 +17,8 @@ export function AppHeader() {
           </div>
         </Link>
         <nav className="flex items-center gap-1 text-sm">
-          <NavLink to="/" icon={<Network className="h-3.5 w-3.5" />} label="Overview" />
+          <NavLink to="/" icon={<Home className="h-3.5 w-3.5" />} label="Home" />
+          <NavLink to="/dashboard" icon={<Network className="h-3.5 w-3.5" />} label="Dashboard" />
           <NavLink to="/services" icon={<GitBranch className="h-3.5 w-3.5" />} label="Services" />
           <NavLink to="/simulate" icon={<Zap className="h-3.5 w-3.5" />} label="Simulate" />
         </nav>
