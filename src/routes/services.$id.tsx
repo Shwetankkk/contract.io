@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { SERVICES_V1 } from "@/data/specs";
+import { SERVICES_V1, type ServiceCall, type ServiceSpec } from "@/data/specs";
 import { EndpointTable } from "@/components/EndpointTable";
 import { DependencyGraph } from "@/components/DependencyGraph";
 
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/services/$id")({
 });
 
 function ServiceDetail() {
-  const { service } = Route.useLoaderData();
+  const { service } = Route.useLoaderData() as { service: ServiceSpec };
   const callers = SERVICES_V1.filter((s) =>
     s.calls.some((c) => c.service === service.id),
   );
@@ -67,7 +67,7 @@ function ServiceDetail() {
             {service.calls.length === 0 && (
               <li className="text-muted-foreground">— no outbound deps</li>
             )}
-            {service.calls.map((c, i) => (
+            {service.calls.map((c: ServiceCall, i: number) => (
               <li key={i}>
                 <span className="sev-safe">{c.service}</span>{" "}
                 <span className="text-muted-foreground">{c.endpoint}</span>{" "}
