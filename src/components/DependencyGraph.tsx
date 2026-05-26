@@ -10,7 +10,6 @@ import ReactFlow, {
   type Node,
   type NodeProps,
 } from "reactflow";
-import "reactflow/dist/style.css";
 import { SERVICES_V1 } from "@/data/specs";
 import { buildEdges } from "@/lib/graph";
 
