@@ -237,6 +237,8 @@ export function OpenApiCompare() {
 
   const run = () => {
     if (!result.ok) return;
+    if (getTodayCount() >= DAILY_CAP) return;
+    bumpTodayCount();
     mutation.mutate({
       data: {
         service: {
