@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { AppHeader } from "@/components/AppHeader";
+import { Footer } from "@/components/Footer";
 
 function NotFoundComponent() {
   return (
@@ -86,8 +87,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Dependency graph + diff engine + AI explainer for microservice API contracts.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:site_name", content: "contract.io" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "author", content: "Shwetank Singh" },
     ],
     links: [
       {
@@ -121,11 +123,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen">
+      <div className="flex min-h-screen flex-col">
         <AppHeader />
-        <main className="mx-auto max-w-7xl px-4 py-8">
+        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
           <Outlet />
         </main>
+        <Footer />
       </div>
     </QueryClientProvider>
   );
