@@ -11,7 +11,7 @@ import { AIReportCard } from "@/components/AIReportCard";
 
 const SAMPLE_OLD = `{
   "openapi": "3.0.0",
-  "info": { "title": "My Service", "version": "1.0.0" },
+  "info": { "title": "Orders API", "version": "1.4.0" },
   "paths": {
     "/users/{id}": {
       "get": {
@@ -34,13 +34,68 @@ const SAMPLE_OLD = `{
           }
         }
       }
+    },
+    "/orders": {
+      "get": {
+        "summary": "List orders",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "total", "currency"],
+                    "properties": {
+                      "id":       { "type": "string" },
+                      "total":    { "type": "number" },
+                      "currency": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create order",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["id"],
+                  "properties": { "id": { "type": "string" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/legacy/ping": {
+      "get": {
+        "summary": "Health ping (deprecated)",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "ok": { "type": "boolean" } } }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }`;
 
 const SAMPLE_NEW = `{
   "openapi": "3.0.0",
-  "info": { "title": "My Service", "version": "1.1.0" },
+  "info": { "title": "Orders API", "version": "2.0.0" },
   "paths": {
     "/users/{id}": {
       "get": {
@@ -57,6 +112,69 @@ const SAMPLE_NEW = `{
                     "email":   { "type": "string" },
                     "userAge": { "type": "integer" }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "summary": "List orders",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "total", "currency"],
+                    "properties": {
+                      "id":         { "type": "string" },
+                      "total":      { "type": "string" },
+                      "currency":   { "type": "string" },
+                      "customerId": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create order",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["id", "status"],
+                  "properties": {
+                    "id":     { "type": "string" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{id}/refund": {
+      "post": {
+        "summary": "Refund an order",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["refundId"],
+                  "properties": { "refundId": { "type": "string" } }
                 }
               }
             }
